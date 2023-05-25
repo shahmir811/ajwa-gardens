@@ -1,0 +1,13 @@
+.error-text {
+    color: red !important;
+    font-weight: bold !important;
+}
+
+.logout-button-div {
+    display: flex;
+    justify-content: center;
+}
+
+.pads-left-right {
+    padding: 0 13px !important;
+}
