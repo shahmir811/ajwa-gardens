@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <h1 class="ui header">Users</h1>
+  <h1 class="ui header">Users</h1>
 
   <div class="row">
     <div class="column">

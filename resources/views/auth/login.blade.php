@@ -43,11 +43,11 @@
 
 <script type="text/javascript">
 
-  document.getElementById('new-user').addEventListener('click', gotoRegisterPage);
+    document.getElementById('new-user').addEventListener('click', gotoRegisterPage);
 
-  function gotoRegisterPage() {
-    window.location.href = APP_URL + 'register';
-  }
+    function gotoRegisterPage() {
+        window.location.href = APP_URL + 'register';
+    }
 
 </script>
 

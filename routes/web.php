@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Customer\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,5 +30,6 @@ Route::group([
 ], function () {
 
     Route::resource('users', UserController::class)->middleware('role:admin');
+    Route::resource('customers', CustomerController::class);
 
 });
