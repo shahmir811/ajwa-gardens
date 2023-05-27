@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Plot extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'cnic',
-        'contact',
-        'father_name',
-        'address',
-    ];
-
+        'plot_no',
+        'marla',
+        'type',
+        'available',
+        'registration_no',
+        'form_no'
+    ];    
 }

@@ -21,8 +21,8 @@ class CustomerController extends Controller
 
         $queries;
 
-        if($column == 'name') {
-          $customers = Customer::where('name', 'like', '%' . $search . '%')->paginate(15);
+        if($column == 'name' || $column == 'father_name') {
+          $customers = Customer::where($column, 'like', '%' . $search . '%')->paginate(15);
 
         } else {
           $queries = array(
@@ -49,15 +49,19 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
       $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'cnic' => ['required', 'string', 'digits:13', 'unique:customers'],
-        'contact' => ['required', 'string'],
+        'name'        => ['required', 'string', 'max:255'],
+        'cnic'        => ['required', 'string', 'digits:13', 'unique:customers'],
+        'contact'     => ['required', 'string'],
+        'father_name' => ['required', 'string'],
+        'address'     => ['required', 'string'],
       ]);
 
-      $customer           = new Customer;
-      $customer->name     = $request->name;
-      $customer->cnic     = $request->cnic;
-      $customer->contact  = $request->contact;
+      $customer               = new Customer;
+      $customer->name         = $request->name;
+      $customer->cnic         = $request->cnic;
+      $customer->contact      = $request->contact;
+      $customer->father_name  = $request->father_name;
+      $customer->address      = $request->address;
       $customer->save();
 
       return redirect()->route('customers.index');
@@ -82,15 +86,19 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
       $request->validate([
-          'name' => 'required|string|max:255',
-          'cnic' => "required|string|digits:13|unique:customers,cnic," . $customer->id,
-          'contact' => "required|string"
+          'name'        => 'required|string|max:255',
+          'cnic'        => "required|string|digits:13|unique:customers,cnic," . $customer->id,
+          'contact'     => "required|string",
+          'father_name' => "required|string",
+          'address'     => "required|string"
       ]);
 
-      $customer           = Customer::findOrFail($customer->id);
-      $customer->name     = $request->name;
-      $customer->cnic     = $request->cnic;
-      $customer->contact  = $request->contact;
+      $customer               = Customer::findOrFail($customer->id);
+      $customer->name         = $request->name;
+      $customer->cnic         = $request->cnic;
+      $customer->contact      = $request->contact;
+      $customer->father_name  = $request->father_name;
+      $customer->address      = $request->address;      
       $customer->save();
 
       return redirect()->route('customers.index');

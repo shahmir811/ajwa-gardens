@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' | Customers')
+@section('title', ' | Plots')
 
 <style>
 
@@ -21,11 +21,11 @@ li.active {
 
 @section('content')
 
-  <h1 class="ui header">Customers</h1>
+  <h1 class="ui header">Plots</h1>
 
   <div class="row">
     <div class="column">
-      <a class="ui green button" href="{{ url('/customers/create') }}">Add Customer</a>
+      <a class="ui green button" href="{{ url('/plots/create') }}">Add Plot</a>
     </div>
   </div>
 
@@ -33,10 +33,9 @@ li.active {
     <div class="three column row">
       <div class="column">
         <select name="column" class="ui fluid dropdown" value="{{ old('column') }}">
-          <option value="name">Name</option>
-          <option value="father_name">Father Name</option>
-          <option value="cnic">CNIC</option>
-          <option value="contact">Contact</option>
+          <option value="plot_no">Plot No</option>
+          <option value="registration_no">Registration No</option>
+          <option value="form_no">Form No</option>
         </select>
       </div>
 
@@ -59,21 +58,26 @@ li.active {
       <table class="ui sortable celled table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Father Name</th>
-            <th>CNIC</th>
-            <th>Contact</th>
+            <th>Plot No</th>
+            <th>Marla</th>
+            <th>Type</th>
+            <th>Registration No</th>
+            <th>Form No</th>
+            <th>Status</th>
             <th>Action</th>
-        </tr></thead>
+          </tr>
+        </thead>
         <tbody>
-          @foreach($customers as $customer)
+          @foreach($plots as $plot)
           <tr>
-            <td data-label="Name">{{ $customer->name }}</td>
-            <td data-label="Name">{{ $customer->father_name }}</td>
-            <td data-label="Age">{{ $customer->cnic }}</td>
-            <td data-label="Job">{{ $customer->contact }}</td>
+            <td data-label="PlotNo">{{ $plot->plot_no }}</td>
+            <td data-label="Marla">{{ $plot->marla }}</td>
+            <td data-label="Job">{{ $plot->type }}</td>
+            <td data-label="Job">{{ $plot->registration_no }}</td>
+            <td data-label="Job">{{ $plot->form_no }}</td>
+            <td data-label="Job">{{ $plot->available ? 'Available' : 'Booked' }}</td>
             <td>
-              <a href="{{ route('customers.edit', ['customer' => $customer]) }}">
+              <a href="{{ route('plots.edit', ['plot' => $plot]) }}">
                 <i class="fa fa-edit"></i> Edit
               </a>
             </td>
@@ -82,11 +86,11 @@ li.active {
         </tbody>
       </table>      
       
-      @if ($customers->hasPages())
+      @if ($plots->hasPages())
 
       <div class='row'>
         <div class="column">
-          {{  $customers->appends($_GET)->links() }}
+          {{  $plots->appends($_GET)->links() }}
         </div>
       </div>
 
@@ -108,9 +112,9 @@ li.active {
     const searchText = document.querySelector('[name="search"]').value;
     console.log(searchText);
     if(searchText) {
-      window.location.href = `${APP_URL}customers?column=${column}&search=${searchText}`;
+      window.location.href = `${APP_URL}plots?column=${column}&search=${searchText}`;
     } else {
-      window.location.href = APP_URL + 'customers';
+      window.location.href = APP_URL + 'plots';
     }
   }
 

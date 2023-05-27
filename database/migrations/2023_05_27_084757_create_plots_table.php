@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('plots', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('cnic')->unique();
-            $table->string('contact');
-            $table->string('father_name');
-            $table->text('address');
+            $table->string('plot_no')->unique();
+            $table->double('marla', 7, 2);
+            $table->enum('type', ['residential', 'commercial']);
+            $table->boolean('available')->default(true); 
+            $table->string('registration_no')->unique();
+            $table->string('form_no')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('plots');
     }
 };

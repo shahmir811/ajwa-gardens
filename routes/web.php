@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Plot\PlotController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Customer\CustomerController;
 
@@ -31,5 +32,6 @@ Route::group([
 
     Route::resource('users', UserController::class)->middleware('role:admin');
     Route::resource('customers', CustomerController::class);
+    Route::resource('plots', PlotController::class);
 
 });

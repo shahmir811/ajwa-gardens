@@ -31,6 +31,16 @@
               @enderror
           </div>
 
+          <div class="field @error('father_name') error @enderror">
+              <label>Father Name</label>
+              <input id="FatherName" type="text" name="father_name" placeholder="Name" value="{{ old('father_name', $customer->father_name) }}" autofocus>
+              @error('father_name')
+                <span class="field error">
+                    <strong class="error-text">{{ $message }}</strong>
+                </span>
+              @enderror
+          </div>     
+
           <div class="field @error('cnic') error @enderror">
               <label>CNIC</label>
               <input type="text" name="cnic" placeholder="cnic" value="{{ old('cnic', $customer->cnic) }}">
@@ -49,7 +59,17 @@
                     <strong class="error-text">{{ $message }}</strong>
                 </span>
               @enderror
-          </div>             
+          </div>   
+          
+          <div class="field @error('address') error @enderror">
+              <label>Address</label>
+              <textarea id="Name" rows=2 name="address" placeholder="Name">{{ old('address', $customer->address) }}</textarea>
+              @error('address')
+                <span class="field error">
+                    <strong class="error-text">{{ $message }}</strong>
+                </span>
+              @enderror
+          </div>                
           
 
           <button class="fluid ui green button" type="submit">Update</button>          
