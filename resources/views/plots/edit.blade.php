@@ -33,7 +33,7 @@
 
           <div class="field @error('marla') error @enderror">
               <label>Marla</label>
-              <input type="number" name="marla" placeholder="Marla" value="{{ old('marla', number_format($plot->marla, 2)) }}">
+              <input type="number" name="marla" placeholder="Marla" step=".001" value="{{ old('marla', number_format($plot->marla, 3)) }}">
               @error('marla')
                 <span class="field error">
                     <strong class="error-text">{{ $message }}</strong>
@@ -44,33 +44,21 @@
           <div class="field">
             <label>Type</label>
             <select name="type" class="ui fluid dropdown" value="{{ old('type', $plot->type) }}">
-              <option value="residential" {{ ( old("type") == 1 ? "selected":"") }}>Residential</option>
-              <option value="commercial" {{ ( old("type") == 2 ? "selected":"") }}>Commercial</option>
+              <option value="residential" {{ ( old("type", $plot->type) == 'residential' ? "selected":"") }}>Residential</option>
+              <option value="commercial" {{ ( old("type", $plot->type) == 'commercial' ? "selected":"") }}>Commercial</option>
             </select>
-          </div>          
-
-          <div class="field @error('registration_no') error @enderror">
-              <label>Registration No</label>
-              <input type="text" name="registration_no" placeholder="Registration No" value="{{ old('registration_no', $plot->registration_no) }}">
-              @error('registration_no')
-                <span class="field error">
-                    <strong class="error-text">{{ $message }}</strong>
-                </span>
-              @enderror
-          </div> 
+          </div>     
           
-          <div class="field @error('form_no') error @enderror">
-              <label>Form No</label>
-              <input type="text" name="form_no" placeholder="Form No" value="{{ old('form_no', $plot->form_no) }}">
-              @error('form_no')
-                <span class="field error">
-                    <strong class="error-text">{{ $message }}</strong>
-                </span>
-              @enderror
-          </div>        
+          <div class="field">
+            <label>Corner plot</label>
+            <select name="corner_plot" class="ui fluid dropdown" value="{{ old('corner_plot') }}">
+              <option value="0" {{ ( old("corner_plot", $plot->corner_plot) == 0 ? "selected":"") }}>No</option>
+              <option value="1" {{ ( old("corner_plot", $plot->corner_plot) == 1 ? "selected":"") }}>Yes</option>
+            </select>
+          </div>                          
 
           <button class="fluid ui green button" type="submit">Update</button>          
-          <a class="fluid ui button cancel-button" href="{{ url('/customers') }}">Cancel</a> 
+          <a class="fluid ui button cancel-button" href="{{ url('/plots') }}">Cancel</a> 
 
         </form>
 

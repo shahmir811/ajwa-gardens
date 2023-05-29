@@ -14,7 +14,6 @@ class Plot extends Model
         'marla',
         'type',
         'available',
-        'registration_no',
-        'form_no'
+        'corner_plot',
     ];    
 }

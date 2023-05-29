@@ -5,4 +5,10 @@ crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="{{ URL::asset('js/semantic.min.js') }}"></script>
 
+<script>
+      $(document).ready(function(){
+          $('.ui.dropdown') .dropdown();
+    });
+</script>
+
 @yield('scripts')

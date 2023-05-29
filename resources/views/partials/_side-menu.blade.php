@@ -16,7 +16,7 @@
         <a class="item {{ request()->is('customers*') ? 'active' : '' }}" href="{{ url('/customers') }}">
             Customers
         </a>
-        <a class="item" {{ request()->is('plots*') ? 'active' : '' }}" href="{{ url('/plots') }}">
+        <a class="item {{ request()->is('plots*') ? 'active' : '' }}" href="{{ url('/plots') }}">
             Plots
         </a>
     </div>

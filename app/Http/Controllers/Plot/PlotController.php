@@ -45,7 +45,7 @@ class PlotController extends Controller
     {
         $request->validate([
             'plot_no'           => ['required', 'string', 'unique:plots'],
-            'marla'             => ['required', 'decimal:2',],
+            'marla'             => ['required', 'decimal:3',],
             'type'              => ['required'],
             'registration_no'   => ['required', 'string', 'unique:plots'],
             'form_no'           => ['required', 'string', 'unique:plots'],
@@ -55,8 +55,7 @@ class PlotController extends Controller
         $plot->plot_no          = $request->plot_no;
         $plot->marla            = $request->marla;
         $plot->type             = $request->type;
-        $plot->form_no          = $request->form_no;
-        $plot->registration_no  = $request->registration_no;
+        $plot->corner_plot      = $request->corner_plot;   
         $plot->save();
 
         return redirect()->route('plots.index');        
@@ -86,18 +85,15 @@ class PlotController extends Controller
     {
         $request->validate([
             'plot_no'           => "required|string|unique:plots,plot_no," . $plot->id,
-            'marla'             => "required|decimal:2",
+            'marla'             => "required|decimal:3",
             'type'              => "required",
-            'registration_no'   => "required|string|unique:plots,registration_no," . $plot->id,
-            'form_no'           => "required|string|unique:plots,form_no," . $plot->id,
         ]);
 
         $plot                   = Plot::findOrFail($plot->id);
         $plot->plot_no          = $request->plot_no;
         $plot->marla            = $request->marla;
         $plot->type             = $request->type;
-        $plot->form_no          = $request->form_no;
-        $plot->registration_no  = $request->registration_no;
+        $plot->corner_plot      = $request->corner_plot;           
         $plot->save();
 
         return redirect()->route('plots.index');                

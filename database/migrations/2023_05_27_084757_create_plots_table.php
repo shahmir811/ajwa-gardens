@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('plots', function (Blueprint $table) {
             $table->id();
             $table->string('plot_no')->unique();
-            $table->double('marla', 7, 2);
+            $table->double('marla', 8, 3);
             $table->enum('type', ['residential', 'commercial']);
             $table->boolean('available')->default(true); 
-            $table->string('registration_no')->unique();
-            $table->string('form_no')->unique();
+            // $table->string('registration_no')->unique();
+            // $table->string('form_no')->unique();
+            $table->boolean('corner_plot')->default(false); 
             $table->timestamps();
         });
     }

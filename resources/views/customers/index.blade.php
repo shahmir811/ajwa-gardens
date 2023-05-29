@@ -8,6 +8,11 @@
   margin-top: 10px !important;
 }
 
+ul.pagination {
+    font-size: 15px !important;
+    padding-top: 10px !important; 
+}
+
 li.page-item > a{
   color: black !important;
 }
@@ -15,6 +20,7 @@ li.page-item > a{
 li.active {
   font-weight: bold !important;
   text-decoration: underline !important;
+  color: blue !important;
 }
 
 </style>

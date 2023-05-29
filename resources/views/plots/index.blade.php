@@ -34,8 +34,6 @@ li.active {
       <div class="column">
         <select name="column" class="ui fluid dropdown" value="{{ old('column') }}">
           <option value="plot_no">Plot No</option>
-          <option value="registration_no">Registration No</option>
-          <option value="form_no">Form No</option>
         </select>
       </div>
 
@@ -60,9 +58,8 @@ li.active {
           <tr>
             <th>Plot No</th>
             <th>Marla</th>
+            <th>Corner Plot</th>
             <th>Type</th>
-            <th>Registration No</th>
-            <th>Form No</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -71,10 +68,9 @@ li.active {
           @foreach($plots as $plot)
           <tr>
             <td data-label="PlotNo">{{ $plot->plot_no }}</td>
-            <td data-label="Marla">{{ $plot->marla }}</td>
+            <td data-label="Marla">{{ number_format($plot->marla, 3) }}</td>
+            <td data-label="Marla">{{ $plot->corner_plot ? 'Yes' : '-' }}</td>
             <td data-label="Job">{{ $plot->type }}</td>
-            <td data-label="Job">{{ $plot->registration_no }}</td>
-            <td data-label="Job">{{ $plot->form_no }}</td>
             <td data-label="Job">{{ $plot->available ? 'Available' : 'Booked' }}</td>
             <td>
               <a href="{{ route('plots.edit', ['plot' => $plot]) }}">

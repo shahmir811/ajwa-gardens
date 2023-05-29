@@ -20,3 +20,6 @@ yarn-error.log
 
 
 *-copy*
+
+database/seeders/CustomerTableSeeder.php
+database/seeders/PlotTableSeeder.php
