@@ -59,6 +59,7 @@ li.active {
             <th>Plot No</th>
             <th>Marla</th>
             <th>Corner Plot</th>
+            <th>Facing Park</th>
             <th>Type</th>
             <th>Status</th>
             <th>Action</th>
@@ -70,6 +71,7 @@ li.active {
             <td data-label="PlotNo">{{ $plot->plot_no }}</td>
             <td data-label="Marla">{{ number_format($plot->marla, 3) }}</td>
             <td data-label="Marla">{{ $plot->corner_plot ? 'Yes' : '-' }}</td>
+            <td data-label="Marla">{{ $plot->facing_park ? 'Yes' : '-' }}</td>
             <td data-label="Job">{{ $plot->type }}</td>
             <td data-label="Job">{{ $plot->available ? 'Available' : 'Booked' }}</td>
             <td>

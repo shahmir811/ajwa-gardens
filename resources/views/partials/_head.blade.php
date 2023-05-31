@@ -13,3 +13,6 @@
 <script type="text/javascript">
   let APP_URL = {!! json_encode(url('/').'/') !!}
 </script>
+
+{{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+<script defer src="{{ mix('js/app.js') }}"></script> --}}

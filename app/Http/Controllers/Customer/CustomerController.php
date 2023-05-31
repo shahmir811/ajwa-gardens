@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CustomerController extends Controller
 {
@@ -64,6 +65,8 @@ class CustomerController extends Controller
       $customer->address      = $request->address;
       $customer->save();
 
+      Alert::success('Customer created successfully', '');
+
       return redirect()->route('customers.index');
     }
 
@@ -100,6 +103,8 @@ class CustomerController extends Controller
       $customer->father_name  = $request->father_name;
       $customer->address      = $request->address;      
       $customer->save();
+
+      Alert::success('Customer details updated successfully', '');      
 
       return redirect()->route('customers.index');
     }

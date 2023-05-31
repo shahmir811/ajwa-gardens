@@ -10,7 +10,9 @@
         Welcome {{ Auth::user()->name }}
         <i class="dropdown icon"></i>
         <div class="menu">
-          <div class="item">New Allotment</div>
+          <a class="item" href="{{ route('allotment') }}">
+            New Allotment
+          </a>
           <div class="item">International Students</div>
           <div class="item">
             <a class="ui item no-pad-margin" href="{{ route('logout') }}" 

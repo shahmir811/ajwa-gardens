@@ -19,7 +19,8 @@ return new class extends Migration
             $table->boolean('available')->default(true); 
             // $table->string('registration_no')->unique();
             // $table->string('form_no')->unique();
-            $table->boolean('corner_plot')->default(false); 
+            $table->boolean('corner_plot')->default(false);
+            $table->boolean('facing_park')->default(false);
             $table->timestamps();
         });
     }
