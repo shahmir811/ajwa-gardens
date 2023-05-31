@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AllotmentController;
 use App\Http\Controllers\Plot\PlotController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Customer\CustomerController;
@@ -35,4 +36,7 @@ Route::group([
     Route::resource('plots', PlotController::class);
 
     Route::post('/change-phase', [HomeController::class, 'changePhase']);
+
+    Route::get('/allotment', [AllotmentController::class, 'index'])->name('allotment');
+
 });
