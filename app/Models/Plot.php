@@ -15,5 +15,6 @@ class Plot extends Model
         'type',
         'available',
         'corner_plot',
+        'facing_park'
     ];    
 }

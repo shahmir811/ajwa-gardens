@@ -54,7 +54,15 @@
               <option value="0" {{ ( old("corner_plot") == 0 ? "selected":"") }}>No</option>
               <option value="1" {{ ( old("corner_plot") == 1 ? "selected":"") }}>Yes</option>
             </select>
-          </div>                  
+          </div>      
+          
+          <div class="field">
+            <label>Facing Park</label>
+            <select name="facing_park" class="ui fluid dropdown" value="{{ old('facing_park') }}">
+              <option value="0" {{ ( old("facing_park") == 0 ? "selected":"") }}>No</option>
+              <option value="1" {{ ( old("facing_park") == 1 ? "selected":"") }}>Yes</option>
+            </select>
+          </div>                
           
           <button class="fluid ui green button" type="submit">Create</button>          
           <a class="fluid ui button cancel-button" href="{{ url('/plots') }}">Cancel</a> 

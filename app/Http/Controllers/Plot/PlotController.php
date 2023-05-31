@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Plot;
 
 use App\Http\Controllers\Controller;
-use App\Models\Plot;
+use App\Models\{Plot, Phase};
 use Illuminate\Http\Request;
 
 class PlotController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $currentPhase;
+
+    public function __construct()
+    {
+        $this->currentPhase = Phase::where('active', '=', 1)->first();
+    }    
+
     public function index(Request $request)
     {
         $plots;
@@ -22,10 +26,12 @@ class PlotController extends Controller
             $queries = array(
                 $column => $search,
             );
-            $plots = Plot::where($queries)->orderBy('plot_no','asc')->paginate(15);            
+            $plots = Plot::where('phase_id', '=', $this->currentPhase->id)
+                            ->where($queries)->orderBy('plot_no','asc')->paginate(15);            
 
         } else {
-            $plots =  Plot::orderBy('plot_no','asc')->paginate(15);
+            $plots =  Plot::where('phase_id', '=', $this->currentPhase->id)
+                        ->orderBy('plot_no','asc')->paginate(15);
         }
         return view('plots.index')->with('plots',$plots);
     }
@@ -45,17 +51,32 @@ class PlotController extends Controller
     {
         $request->validate([
             'plot_no'           => ['required', 'string', 'unique:plots'],
+            // 'plot_no' => [
+            //     'required', 'string',
+            //     function ($attribute, $value, $fail) {
+                    
+            //         // Checke if plot_no is unique in this phase
+            //         $plot_exists = Plot::where('plot_no', '=',$value)->where('phase_id', '=', $this->currentPhase->id)->count() > 0;
+
+            //         if ($plot_exists) {
+            //             // $fail('The '.$attribute.' must be unique in this phase.' . $this->currentPhase->id);
+            //             $fail('The plot number already exists in this phase ' . $this->currentPhase->id);
+            //         }
+            //     }
+            // ],            
             'marla'             => ['required', 'decimal:3',],
             'type'              => ['required'],
-            'registration_no'   => ['required', 'string', 'unique:plots'],
-            'form_no'           => ['required', 'string', 'unique:plots'],
+            'corner_plot'       => ['required'],
+            'facing_park'       => ['required'],                        
         ]);
 
         $plot                   = new Plot;
         $plot->plot_no          = $request->plot_no;
         $plot->marla            = $request->marla;
         $plot->type             = $request->type;
-        $plot->corner_plot      = $request->corner_plot;   
+        $plot->corner_plot      = $request->corner_plot; 
+        $plot->facing_park      = $request->facing_park;   
+        $plot->phase_id         = $this->currentPhase->id;
         $plot->save();
 
         return redirect()->route('plots.index');        
@@ -87,13 +108,16 @@ class PlotController extends Controller
             'plot_no'           => "required|string|unique:plots,plot_no," . $plot->id,
             'marla'             => "required|decimal:3",
             'type'              => "required",
+            'corner_plot'       => "required",
+            'facing_park'       => "required",
         ]);
 
         $plot                   = Plot::findOrFail($plot->id);
         $plot->plot_no          = $request->plot_no;
         $plot->marla            = $request->marla;
         $plot->type             = $request->type;
-        $plot->corner_plot      = $request->corner_plot;           
+        $plot->corner_plot      = $request->corner_plot;     
+        $plot->facing_park      = $request->facing_park;                 
         $plot->save();
 
         return redirect()->route('plots.index');                

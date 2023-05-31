@@ -34,4 +34,5 @@ Route::group([
     Route::resource('customers', CustomerController::class);
     Route::resource('plots', PlotController::class);
 
+    Route::post('/change-phase', [HomeController::class, 'changePhase']);
 });

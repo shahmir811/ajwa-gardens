@@ -13,6 +13,7 @@
     <div class="ui grid pads-left-right">
 
         @include('partials._side-menu')
+        @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 
         <div class="twelve wide stretched column">
             <div class="ui segment">
