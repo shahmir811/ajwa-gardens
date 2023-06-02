@@ -70,7 +70,8 @@ li.active {
             <th>CNIC</th>
             <th>Contact</th>
             <th>Action</th>
-        </tr></thead>
+          </tr>
+        </thead>
         <tbody>
           @foreach($customers as $customer)
           <tr>

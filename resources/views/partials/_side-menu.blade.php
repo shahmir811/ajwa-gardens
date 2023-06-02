@@ -19,5 +19,9 @@
         <a class="item {{ request()->is('plots*') ? 'active' : '' }}" href="{{ url('/plots') }}">
             Plots
         </a>
+
+        <a class="item {{ request()->is('allotment*') ? 'active' : '' }}" href="{{ url('/allotment') }}">
+            Allotments
+        </a>        
     </div>
 </div>

@@ -5,6 +5,9 @@
  */
 
 import { createApp } from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+
+import "sweetalert2/dist/sweetalert2.min.css";
 import "./bootstrap";
 
 /**
@@ -14,11 +17,15 @@ import "./bootstrap";
  */
 
 const app = createApp({});
+app.use(VueSweetalert2);
 
 import AllotmentComponent from "./components/AllotmentComponent.vue";
 import ExampleComponent from "./components/ExampleComponent.vue";
+import PaymentSchedule from "./components/PaymentSchedule.vue";
+
 app.component("example-component", ExampleComponent);
 app.component("allotment-component", AllotmentComponent);
+app.component("payment-schedule", PaymentSchedule);
 
 /**
  * The following block of code may be used to automatically register your
