@@ -16,5 +16,10 @@ class Plot extends Model
         'available',
         'corner_plot',
         'facing_park'
-    ];    
+    ];   
+    
+    public function phase()
+    {
+        return $this->belongsTo(Phase::class);
+    }        
 }

@@ -38,5 +38,7 @@ Route::group([
     Route::post('/change-phase', [HomeController::class, 'changePhase']);
 
     Route::get('/allotment', [AllotmentController::class, 'index'])->name('allotment');
+    Route::get('/allotment/create', [AllotmentController::class, 'create'])->name('create-allotment');
+    Route::post('/save-allotment', [AllotmentController::class, 'store'])->name('save-allotment');
 
 });
