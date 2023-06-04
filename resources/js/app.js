@@ -21,11 +21,13 @@ app.use(VueSweetalert2);
 
 import AllotmentComponent from "./components/AllotmentComponent.vue";
 import ExampleComponent from "./components/ExampleComponent.vue";
+import PaymentDetails from "./components/PaymentDetails.vue";
 import PaymentSchedule from "./components/PaymentSchedule.vue";
 
 app.component("example-component", ExampleComponent);
 app.component("allotment-component", AllotmentComponent);
 app.component("payment-schedule", PaymentSchedule);
+app.component("payment-details", PaymentDetails);
 
 /**
  * The following block of code may be used to automatically register your

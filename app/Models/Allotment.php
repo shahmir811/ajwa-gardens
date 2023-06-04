@@ -22,7 +22,10 @@ class Allotment extends Model
         'total_months',
         'starting_date',
         'registration_no',
-        'form_no'
+        'form_no',
+        'total_received_amount',
+        'total_remaining_amount',
+        'last_payment_at'
     ];  
     
     public function phase()

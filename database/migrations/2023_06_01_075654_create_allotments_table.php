@@ -23,6 +23,9 @@ return new class extends Migration
             $table->date('starting_date');
             $table->string('registration_no')->unique();
             $table->string('form_no')->unique();
+            $table->integer('total_received_amount');
+            $table->integer('total_remaining_amount');
+            $table->date('last_payment_at');
             $table->foreignId('phase_id');
             $table->foreignId('customer_id');
             $table->foreignId('plot_id');

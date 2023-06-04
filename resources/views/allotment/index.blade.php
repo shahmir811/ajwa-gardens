@@ -31,7 +31,9 @@ li.active {
 
   <div class="row">
     <div class="column">
-      <a class="ui green button" href="{{ url('/allotment/create') }}">New Allotment</a>
+      <a class="ui green button" href="{{ url('/allotment/create') }}">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> New Allotment
+      </a>
     </div>
   </div>
 
@@ -54,7 +56,9 @@ li.active {
         </div>
       </div>
       <div class="column">
-        <button class="fluid ui green button" id='search-button'>Search</button>
+        <button class="fluid ui green button" id='search-button'>
+          <i class="fa fa-search" aria-hidden="true"></i> Search
+        </button>
       </div>
     </div>
   </div>    
@@ -71,6 +75,7 @@ li.active {
             <th>Registration Number</th>
             <th>Form Number</th>
             {{-- <th>Remaining Amount</th> --}}
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -84,6 +89,11 @@ li.active {
               <td data-label="RegistrationNo">{{ $allotment->registration_no}}</td>
               <td data-label="FormNo">{{ $allotment->form_no}}</td>
               {{-- <td data-label="RemainingAmount">{{ $allotment->schedules[0]->remaining_amount }}</td> --}}
+              <td>
+                <a href="{{ route('view-allotment', ['id' => $allotment->id]) }}">
+                  <i class="fa fa-eye"></i> View
+                </a>
+              </td>
             </tr>
             @endforeach
           @endif

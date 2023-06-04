@@ -83,20 +83,23 @@ class AllotmentController extends Controller
     {
         DB::transaction(function () use ($request) {
 
-          $allotment                      = new Allotment;
-          $allotment->phase_id            = $this->currentPhase->id;
-          $allotment->customer_id         = $request->customer_id;
-          $allotment->plot_id             = $request->plot_id;
-          $allotment->total_amount        = $request->total_amount;
-          $allotment->down_amount         = $request->down_amount;
-          $allotment->monthly_amount      = $request->monthly_amount;
-          $allotment->per_marla_rate      = $request->per_marla_rate;
-          $allotment->total_months        = $request->total_months; 
-          $allotment->three_months_amount = $request->three_months_amount;          
-          $allotment->six_months_amount   = $request->six_months_amount;
-          $allotment->starting_date       = $request->starting_date;
-          $allotment->registration_no     = $request->registration_no;
-          $allotment->form_no             = $request->form_no;
+          $allotment                          = new Allotment;
+          $allotment->phase_id                = $this->currentPhase->id;
+          $allotment->customer_id             = $request->customer_id;
+          $allotment->plot_id                 = $request->plot_id;
+          $allotment->total_amount            = $request->total_amount;
+          $allotment->down_amount             = $request->down_amount;
+          $allotment->monthly_amount          = $request->monthly_amount;
+          $allotment->per_marla_rate          = $request->per_marla_rate;
+          $allotment->total_months            = $request->total_months; 
+          $allotment->three_months_amount     = $request->three_months_amount;          
+          $allotment->six_months_amount       = $request->six_months_amount;
+          $allotment->starting_date           = $request->starting_date;
+          $allotment->registration_no         = $request->registration_no;
+          $allotment->form_no                 = $request->form_no;
+          $allotment->total_received_amount   = $request->down_amount;
+          $allotment->total_remaining_amount  = $request->total_amount - $request->down_amount;
+          $allotment->last_payment_at         = $request->starting_date;
           $allotment->save();
 
           foreach ($request->paymentSchedule as $record){ 
@@ -122,6 +125,14 @@ class AllotmentController extends Controller
             'message' => 'Allotment data saved successfully',
         ], 200);      
 
+    }
+
+    public function view($id)
+    {
+      $allotment = Allotment::findOrFail($id);
+      return view('allotment.view', [
+          'allotment' => $allotment,
+      ]);      
     }
 
     private function getThreeOrSixMonthColumnValue($data)
