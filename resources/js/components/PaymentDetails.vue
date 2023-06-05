@@ -29,7 +29,9 @@
                                         : "-"
                                 }}
                             </td>
-                            <td></td>
+                            <td>
+                                {{ formattedDate(record.amount_received_on) }}
+                            </td>
                             <td>
                                 {{ record.monthly_amount.toLocaleString() }}
                             </td>
@@ -67,7 +69,9 @@
                             <td></td>
                             <td>
                                 {{
-                                    totalAmountReceived.toLocaleString("en-IN")
+                                    allotment.total_received_amount.toLocaleString(
+                                        "en-IN"
+                                    )
                                 }}
                             </td>
                             <td></td>
@@ -125,7 +129,8 @@ export default {
     },
     methods: {
         formattedDate(date) {
-            return moment(date).format("DD-MM-YYYY");
+            if (date) return moment(date).format("DD-MM-YYYY");
+            else return "";
         },
         calculateTotalAmountReceived() {
             const sumOfReceivedPayments = this.schedules

@@ -37,6 +37,8 @@ div.print-schedule-div {
       </div>
 
       <div id="app" class="mt-25">
+        <receive-installment></receive-installment>
+
         <payment-details :allotment="{{ $allotment }}" :schedules="{{ $allotment->schedules }}"></payment-details>
       </div>
 

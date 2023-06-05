@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\{Plot, Phase, Customer, Allotment, PaymentSchedule};
 use Illuminate\Http\Request;
 use App\Http\Requests\SaveNewAllotment;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AllotmentController extends Controller
 {
@@ -58,9 +59,6 @@ class AllotmentController extends Controller
         $allotments = Allotment::where('phase_id', '=', $this->currentPhase->id)
                         ->paginate(15);
       }
-
-      // $allotments = Allotment::where('phase_id', '=', $this->currentPhase->id)
-      //                 ->paginate(15);
 
       return view('allotment.index', [
           'allotments' => $allotments
@@ -133,6 +131,41 @@ class AllotmentController extends Controller
       return view('allotment.view', [
           'allotment' => $allotment,
       ]);      
+    }
+
+    public function receivedMonthlyInstallment(Request $request)
+    {
+
+      DB::transaction(function () use ($request) {
+
+        $year = date('Y', strtotime($request->date));
+        $month = date('m', strtotime($request->date));
+
+        $schedule                       = PaymentSchedule::whereYear('date', '=', $year)
+                                            ->whereMonth('date', '=', $month)
+                                            ->first();
+        $schedule->amount_received      += $request->amount;
+        $schedule->amount_received_on   = $request->date;
+        $schedule->save();
+  
+        $allotment                          = Allotment::findOrFail($schedule->allotment_id);
+        $allotment->total_received_amount   += $request->amount;
+        $allotment->total_remaining_amount  -= $request->amount;
+        $allotment->last_payment_at         = $request->date;
+        $allotment->save();
+
+        // TODO: Save to messages database table
+
+      });     
+      
+      Alert::success('Rs ' . $request->amount .' has been received as monthly installment', '');      
+
+
+      return response() -> json([
+          'status' => 1,
+          'message' => 'Monthly installment Received',
+      ], 200);            
+
     }
 
     private function getThreeOrSixMonthColumnValue($data)

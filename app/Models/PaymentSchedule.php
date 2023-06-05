@@ -13,7 +13,7 @@ class PaymentSchedule extends Model
         'date',
         'monthly_amount',
         'amount_received',
-        'amount_received_at',
+        'amount_received_on',
         'three_or_six_month',
         'remaining_amount',
         'allotment_id',

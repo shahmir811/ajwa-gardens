@@ -41,5 +41,6 @@ Route::group([
     Route::get('/allotment/view/{id}', [AllotmentController::class, 'view'])->name('view-allotment');
     Route::get('/allotment/create', [AllotmentController::class, 'create'])->name('create-allotment');
     Route::post('/save-allotment', [AllotmentController::class, 'store'])->name('save-allotment');
+    Route::post('/received-monthly-installment', [AllotmentController::class, 'receivedMonthlyInstallment']); // id => payment schedule id
 
 });

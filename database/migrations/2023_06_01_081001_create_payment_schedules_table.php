@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('monthly_amount');
             $table->integer('amount_received')->default(0);
-            $table->timestamp('amount_received_at')->nullable();
+            $table->date('amount_received_on')->nullable();
             $table->integer('three_or_six_month');
             $table->integer('remaining_amount');
             $table->foreignId('allotment_id');
