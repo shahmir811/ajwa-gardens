@@ -32,9 +32,9 @@
       <a class="ui item" href="{{ route('login') }}">
         Login
       </a>
-      <a class="ui item" href="{{ route('register') }}">
+      {{-- <a class="ui item" href="{{ route('register') }}">
         Register
-      </a>
+      </a> --}}
       @endauth          
   </div>
 </div>

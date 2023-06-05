@@ -11,6 +11,10 @@ crossorigin="anonymous"></script>
     $(document).ready(function(){
         $('.ui.dropdown') .dropdown();
     });
+
+    $('.menu .item')
+        .tab()
+    ;
 </script>
 
 @yield('scripts')

@@ -361,7 +361,6 @@ export default {
                                 paymentSchedule: this.paymentSchedule,
                             })
                             .then((response) => {
-                                console.log(response);
                                 this.$swal.fire(
                                     "Saved!",
                                     "Plan has been saved.",
