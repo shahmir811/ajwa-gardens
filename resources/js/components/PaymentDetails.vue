@@ -12,6 +12,7 @@
                             <th>Monthly Installments</th>
                             <th>3 Months &amp; Half Year Payment</th>
                             <th>Remaining Amount</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,10 +59,43 @@
                             </td>
                             <td>
                                 {{
-                                    record.remaining_amount.toLocaleString(
+                                    allotment.total_remaining_amount.toLocaleString(
                                         "en-IN"
                                     )
                                 }}
+                            </td>
+                            <td>
+                                <span v-if="record.amount_received">
+                                    <a
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Print Installment"
+                                        class="print-installment"
+                                        @click.prevent="
+                                            printInstallment(record.id)
+                                        "
+                                    >
+                                        <i
+                                            class="fa fa-print"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </a>
+                                    <a
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Delete Installment"
+                                        class="remove-installment"
+                                        @click.prevent="
+                                            removeInstallment(record.id)
+                                        "
+                                        v-if="role === 'admin'"
+                                    >
+                                        <i
+                                            class="fa fa-trash-o"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </a>
+                                </span>
                             </td>
                         </tr>
                         <tr class="bottom-row">
@@ -105,27 +139,22 @@ import moment from "moment";
 
 export default {
     name: "PaymentDetails",
-    props: ["allotment", "schedules"],
+    props: ["allotment", "schedules", "role"],
     mounted() {
-        // console.log("Component mounted.");
-        // console.log(this.allotment);
-        // console.log("----------------");
-        console.log(this.schedules);
         this.calculateTotalAmountReceived();
         this.calcMonthlyAmountSum();
         this.calcThreeSixMonthsAmountSum();
+        const url = window.location.href;
+        const id = url.substring(url.lastIndexOf("/") + 1);
+        this.currentURLID = id;
     },
     data() {
         return {
             monthlyAmountSum: 0,
             threeSixMonthsAmountSum: 0,
             totalAmountReceived: 0,
+            currentURLID: null,
         };
-    },
-    filters: {
-        moment: function (date) {
-            return moment(date).format("DD-MM-YYYY");
-        },
     },
     methods: {
         formattedDate(date) {
@@ -149,6 +178,53 @@ export default {
                 .map((record) => record.three_or_six_month)
                 .reduce((a, b) => a + b, 0);
         },
+        printInstallment(id) {
+            // console.log("printInstallment id: " + id);
+            axios
+                .get(`${APP_URL}print-installment-slip/${id}`, {
+                    responseType: "arraybuffer",
+                })
+                .then((response) => {
+                    let blob = new Blob([response.data], {
+                        type: "application/pdf",
+                    });
+                    let link = document.createElement("a");
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "print_slip.pdf";
+                    link.click();
+                });
+        },
+        removeInstallment(id) {
+            console.log("removeInstallment ID: " + id);
+
+            this.$swal
+                .fire({
+                    title: "Are you sure to remove this receiving amount?",
+                    text: "You won't be able to recover this.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3D7448",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, remove it!",
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        axios
+                            .delete(`${APP_URL}remove-installment/${id}`)
+                            .then(() => {
+                                window.location.href =
+                                    APP_URL +
+                                    "allotment/view/" +
+                                    this.currentURLID;
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                this.errors = error.response.data.errors;
+                            });
+                        /////////////////////////
+                    }
+                });
+        },
     },
 };
 </script>
@@ -161,5 +237,15 @@ export default {
 .bottom-row {
     font-weight: bold;
     font-size: 15px;
+}
+
+.remove-installment {
+    color: red;
+    cursor: pointer;
+    margin-left: 7px;
+}
+
+.print-installment {
+    cursor: pointer;
 }
 </style>

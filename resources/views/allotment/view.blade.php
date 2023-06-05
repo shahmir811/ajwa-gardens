@@ -30,16 +30,30 @@ div.print-schedule-div {
     </div>
     <div class="ui bottom attached tab segment active" data-tab="first">
       <div class="print-schedule-div">
-        <a class="ui blue button" href="{{ url('/allotment') }}">
-          <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
-        </a>
-        <button class="ui red button"><i class="fa fa-print" aria-hidden="true"></i> Print Schedule</button>
+        <div class="left-side-div">
+          <a class="ui blue button" href="{{ url('/allotment') }}">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+          </a>
+          {{-- <button class="ui red button">
+            <i class="fa fa-trash-o" aria-hidden="true" data-confirm-delete="true"></i> Remove Allotment
+          </button> --}}
+          <a class="ui red button" href="{{ route('remove-allotment', $allotment->id) }}" data-confirm-delete="true">  
+            <i class="fa fa-trash-o" aria-hidden="true"></i> Remove Allotment
+          </a>
+        </div>
+        <div class="right-side-div">
+          <a class="ui red button" href="{{ route('print-payment-schdule', $allotment->id) }}"><i class="fa fa-print" aria-hidden="true"></i> Print Schedule</a>
+        </div>
       </div>
 
       <div id="app" class="mt-25">
         <receive-installment></receive-installment>
 
-        <payment-details :allotment="{{ $allotment }}" :schedules="{{ $allotment->schedules }}"></payment-details>
+        <payment-details 
+          role="{{ $role }}" 
+          :allotment="{{ $allotment }}" 
+          :schedules="{{ $allotment->schedules }}">
+        </payment-details>
       </div>
 
     </div>

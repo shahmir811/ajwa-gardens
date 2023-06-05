@@ -45,7 +45,6 @@
 export default {
     name: "ReceiveInstallmentComponent",
     mounted() {
-        console.log("Component mounted.");
         const url = window.location.href;
         const id = url.substring(url.lastIndexOf("/") + 1);
         this.currentURLID = id;
@@ -79,13 +78,7 @@ export default {
                             .post(`${APP_URL}received-monthly-installment`, {
                                 ...this.form,
                             })
-                            .then((response) => {
-                                // console.log(response);
-                                // this.$swal.fire(
-                                //     "Saved!",
-                                //     "Amount has been received successfully.",
-                                //     "success"
-                                // );
+                            .then(() => {
                                 window.location.href =
                                     APP_URL +
                                     "allotment/view/" +

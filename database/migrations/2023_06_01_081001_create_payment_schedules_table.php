@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('amount_received')->default(0);
             $table->date('amount_received_on')->nullable();
             $table->integer('three_or_six_month');
-            $table->integer('remaining_amount');
+            // $table->integer('remaining_amount');
             $table->foreignId('allotment_id');
 
             $table->foreign('allotment_id')->references('id')->on('allotments')->onDelete('cascade');            

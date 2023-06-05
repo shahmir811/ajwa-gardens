@@ -42,5 +42,9 @@ Route::group([
     Route::get('/allotment/create', [AllotmentController::class, 'create'])->name('create-allotment');
     Route::post('/save-allotment', [AllotmentController::class, 'store'])->name('save-allotment');
     Route::post('/received-monthly-installment', [AllotmentController::class, 'receivedMonthlyInstallment']); // id => payment schedule id
+    Route::delete('/remove-installment/{id}', [AllotmentController::class, 'removeInstallment']);
+    Route::delete('/remove-allotment/{id}', [AllotmentController::class, 'removeAllotment'])->name('remove-allotment');
+    Route::get('/print-installment-slip/{id}', [AllotmentController::class, 'printInstallmentSlip']); // id => PaymentSchduleSlip id
+    Route::get('/print-payment-schdule/{id}', [AllotmentController::class, 'printAllPayments'])->name('print-payment-schdule'); // id => Allotment id 
 
 });

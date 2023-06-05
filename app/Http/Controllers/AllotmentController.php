@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\{Plot, Phase, Customer, Allotment, PaymentSchedule};
@@ -105,7 +107,7 @@ class AllotmentController extends Controller
             $schedule->date               = Carbon::createFromFormat('d-m-Y', $record['date'])->format('Y-m-d');
             $schedule->monthly_amount     = $record['monthly_amount'];
             $schedule->allotment_id       = $allotment->id;
-            $schedule->remaining_amount   = $record['remaining_amount'];
+            // $schedule->remaining_amount   = $record['remaining_amount'];
             $schedule->three_or_six_month = $this->getThreeOrSixMonthColumnValue($record);
             $schedule->save();
 
@@ -127,9 +129,15 @@ class AllotmentController extends Controller
 
     public function view($id)
     {
+
+      $title = 'Delete Allotment!';
+      $text = "Are you sure you want to delete this allotment?";
+      confirmDelete($title, $text);      
+
       $allotment = Allotment::findOrFail($id);
       return view('allotment.view', [
           'allotment' => $allotment,
+          'role' => Auth::user()->role->name,
       ]);      
     }
 
@@ -166,6 +174,81 @@ class AllotmentController extends Controller
           'message' => 'Monthly installment Received',
       ], 200);            
 
+    }
+
+    public function removeInstallment($id)
+    {
+
+      DB::transaction(function () use ($id) {
+
+        $amount;
+        $allotment_id;
+
+        $schedule                     = PaymentSchedule::findOrFail($id);
+        $allotment_id                 = $schedule->allotment_id;
+        $amount                       = $schedule->amount_received;
+        $schedule->amount_received    = 0;
+        $schedule->amount_received_on = null;
+
+        $schedule->save();
+
+        $allotment                          = Allotment::findOrFail($allotment_id);
+        $allotment->total_received_amount   -= $amount;
+        $allotment->total_remaining_amount  += $amount;
+        $allotment->save();
+
+      }); 
+
+      Alert::success('Record has been removed successfully', '');
+
+      return response() -> json([
+          'status' => 1,
+          'message' => 'Monthly installment has been removed successfully',
+      ], 200);            
+
+
+    }
+
+    public function removeAllotment($id)
+    {
+      DB::transaction(function () use ($id) {
+
+        $plot_id;
+
+        $allotment = Allotment::findOrFail($id);
+        $plot_id = $allotment->plot_id;
+
+        foreach ($allotment->schedules as $schedule) {
+          $schedule->delete();
+        }
+
+        $allotment->delete();
+
+        $plot             = Plot::findOrFail($plot_id);
+        $plot->available  = 1;
+        $plot->save();
+
+      }); 
+
+      Alert::success('Allotment has been removed successfully', '');
+
+      return redirect('/allotment');
+
+    }
+
+    public function printInstallmentSlip($id) 
+    {
+      $schedule = PaymentSchedule::findOrFail($id);
+      $pdf = PDF::loadView('pdfs.paymentSlip',array('schedule' => $schedule));
+      return $pdf->download('print_installment_slip.pdf');
+
+    }
+
+    public function printAllPayments($id) 
+    {
+      $allotment = Allotment::findOrFail($id);
+      $pdf = PDF::loadView('pdfs.paymentSchedule',array('allotment' => $allotment));
+      return $pdf->download('payment_schedule.pdf');
     }
 
     private function getThreeOrSixMonthColumnValue($data)
