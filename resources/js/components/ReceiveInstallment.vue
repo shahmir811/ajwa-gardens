@@ -75,9 +75,12 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
                         axios
-                            .post(`${APP_URL}received-monthly-installment`, {
-                                ...this.form,
-                            })
+                            .post(
+                                `${APP_URL}received-monthly-installment/${this.currentURLID}`,
+                                {
+                                    ...this.form,
+                                }
+                            )
                             .then(() => {
                                 window.location.href =
                                     APP_URL +

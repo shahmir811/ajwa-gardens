@@ -6,10 +6,10 @@ use PDF;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Plot, Phase, Customer, Allotment, PaymentSchedule};
 use Illuminate\Http\Request;
 use App\Http\Requests\SaveNewAllotment;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\{Plot, Phase, Customer, Allotment, PaymentSchedule, Message};
 
 class AllotmentController extends Controller
 {
@@ -141,17 +141,18 @@ class AllotmentController extends Controller
       ]);      
     }
 
-    public function receivedMonthlyInstallment(Request $request)
+    public function receivedMonthlyInstallment(Request $request, $id)
     {
 
-      DB::transaction(function () use ($request) {
+      DB::transaction(function () use ($request, $id) {
 
         $year = date('Y', strtotime($request->date));
         $month = date('m', strtotime($request->date));
 
-        $schedule                       = PaymentSchedule::whereYear('date', '=', $year)
-                                            ->whereMonth('date', '=', $month)
-                                            ->first();
+        $schedule                       = PaymentSchedule::where('allotment_id', '=', $id)
+                                                        ->whereYear('date', '=', $year)
+                                                        ->whereMonth('date', '=', $month)
+                                                        ->first();
         $schedule->amount_received      += $request->amount;
         $schedule->amount_received_on   = $request->date;
         $schedule->save();
@@ -163,6 +164,29 @@ class AllotmentController extends Controller
         $allotment->save();
 
         // TODO: Save to messages database table
+
+        $description = "Monthly installment of Rs " . $request->amount . ' has been submitted against your plot # ' . $allotment->plot->plot_no . ' at Ajwa Gardens Phase ' . $allotment->phase->name;
+
+        $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
+
+        $record = [
+          'description' => $description,
+          'phone_number' => $phone_number
+        ];
+
+        $message = new Message;
+        $message->insertMessage($record);        
+
+        $phone_number = env("ZAFFAR_BHAI_CONTACT", ""); 
+        $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
+
+        $record = [
+          'description' => $description,
+          'phone_number' => $phone_number
+        ];
+
+        $message->insertMessage($record);
+
 
       });     
       
