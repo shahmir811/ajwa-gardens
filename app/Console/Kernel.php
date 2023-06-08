@@ -12,11 +12,18 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
+
+    protected $commands = [
+        Commands\BackupCron::class,
+    ];
+
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
         Log::info('Cron job is execute at ' . Carbon::now('Asia/Karachi'));
         // $schedule->command('send:sms')->hourly();
+
+        $schedule->command('backup:cron')->everyTwoHours();
     }
 
     /**
