@@ -37,9 +37,11 @@ div.print-schedule-div {
           {{-- <button class="ui red button">
             <i class="fa fa-trash-o" aria-hidden="true" data-confirm-delete="true"></i> Remove Allotment
           </button> --}}
+          @if (Auth::user() && Auth::user()->role->name == 'admin')
           <a class="ui red button" href="{{ route('remove-allotment', $allotment->id) }}" data-confirm-delete="true">  
             <i class="fa fa-trash-o" aria-hidden="true"></i> Remove Allotment
           </a>
+          @endif
         </div>
         <div class="right-side-div">
           <a class="ui red button" href="{{ route('print-payment-schdule', $allotment->id) }}"><i class="fa fa-print" aria-hidden="true"></i> Print Schedule</a>

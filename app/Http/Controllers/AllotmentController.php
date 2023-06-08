@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Auth;
+use Config;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -177,7 +178,7 @@ class AllotmentController extends Controller
         $message = new Message;
         $message->insertMessage($record);        
 
-        $phone_number = env("ZAFFAR_BHAI_CONTACT", ""); 
+        $phone_number = Config::get('customvariables.zaffar_bhai_contact');
         $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
         $record = [
