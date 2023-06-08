@@ -13,14 +13,12 @@
           <a class="item" href="{{ route('create-allotment') }}">
             New Allotment
           </a>
-          <div class="item">International Students</div>
-          <div class="item">
+          {{-- <div class="item">International Students</div> --}}
             <a class="ui item no-pad-margin" href="{{ route('logout') }}" 
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
               Logout
             </a>                 
-          </div>
         </div>
       </div>  
 
