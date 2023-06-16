@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
         $user1 = User::create([
             'name'      => 'Zafar Tasneem',
             'email'     => 'zaffar@ajwagardens-cms.com',
-            'password'  =>  bcrypt(Hello123456),
+            'password'  =>  bcrypt('Hello123456'),
             'role_id'   => $admin_id,
         ]);
 
