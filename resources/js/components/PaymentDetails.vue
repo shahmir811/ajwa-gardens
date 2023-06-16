@@ -39,7 +39,7 @@
                             <td>
                                 <span v-if="record.id === 3">
                                     {{
-                                        allotment.three_months_amount
+                                        allotment.three_months_amount > 0
                                             ? allotment.three_months_amount.toLocaleString(
                                                   "en-IN"
                                               )
@@ -48,7 +48,7 @@
                                 >
                                 <span v-else-if="record.id % 6 === 0">
                                     {{
-                                        allotment.six_months_amount
+                                        allotment.six_months_amount > 0
                                             ? allotment.six_months_amount.toLocaleString(
                                                   "en-IN"
                                               )
@@ -65,7 +65,12 @@
                                 }}
                             </td>
                             <td>
-                                <span v-if="record.amount_received">
+                                <span
+                                    v-if="
+                                        record.amount_received &&
+                                        record.amount_received > 0
+                                    "
+                                >
                                     <a
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="top"
@@ -170,12 +175,12 @@ export default {
         },
         calcMonthlyAmountSum() {
             this.monthlyAmountSum = this.schedules
-                .map((record) => record.monthly_amount)
+                .map((record) => parseInt(record.monthly_amount))
                 .reduce((a, b) => a + b, 0);
         },
         calcThreeSixMonthsAmountSum() {
             this.threeSixMonthsAmountSum = this.schedules
-                .map((record) => record.three_or_six_month)
+                .map((record) => parseInt(record.three_or_six_month))
                 .reduce((a, b) => a + b, 0);
         },
         printInstallment(id) {
