@@ -119,7 +119,10 @@ class AllotmentController extends Controller
           $plot->save();
         
 
-        });        
+        });  
+        
+        
+        Alert::success('New allowtment has been created');          
 
         return response() -> json([
             'status' => 1,
