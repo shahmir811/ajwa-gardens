@@ -122,7 +122,7 @@ class AllotmentController extends Controller
         });  
         
         
-        Alert::success('New allowtment has been created');          
+        Alert::success('New allotment has been created');          
 
         return response() -> json([
             'status' => 1,
