@@ -17,9 +17,9 @@ class UserTableSeeder extends Seeder
         $emp_id     = Role::where('name', '=', 'employee')->pluck('id')->first();
         
         $user1 = User::create([
-            'name'      => 'Shahmir Khan Jadoon',
-            'email'     => 'shahmir@gmail.com',
-            'password'  =>  bcrypt(123456),
+            'name'      => 'Zafar Tasneem',
+            'email'     => 'zaffar@ajwagardens-cms.com',
+            'password'  =>  bcrypt(Hello123456),
             'role_id'   => $admin_id,
         ]);
 
@@ -35,8 +35,8 @@ class UserTableSeeder extends Seeder
         // $user3->save();
         
         $user3 = User::create([
-            'name'      => 'Asim Muneer',
-            'email'     => 'asim@gmail.com',
+            'name'      => 'Gulfam',
+            'email'     => 'gulfam@ajwagardens-cms.com',
             'password'  =>  bcrypt(123456),
             'role_id'   => $emp_id,
         ]);
