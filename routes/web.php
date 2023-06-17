@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\AllotmentController;
 use App\Http\Controllers\Plot\PlotController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Customer\CustomerController;
+
+Route::get('/email', [MailController::class, 'checkMail']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,7 +28,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home1', [HomeController::class, 'index'])->name('home');
+
+
 
 Route::group([
     'middleware' => ['auth'],

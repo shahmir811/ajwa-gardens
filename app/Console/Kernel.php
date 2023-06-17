@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
                     ->timezone('Asia/Karachi')
                     ->emailOutputTo('zaffar@ajwagardens-cms.com')
                     ->emailOutputOnFailure('zaffar@ajwagardens-cms.com');
+
     }
 
     /**
