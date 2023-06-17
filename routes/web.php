@@ -20,7 +20,6 @@ use App\Http\Controllers\Plot\PlotController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Customer\CustomerController;
 
-Route::get('/email', [MailController::class, 'checkMail']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,8 +27,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home1', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/email', [MailController::class, 'checkMail']);
 
 
 Route::group([
