@@ -23,7 +23,10 @@ class Kernel extends ConsoleKernel
         Log::info('Cron job is execute at ' . Carbon::now('Asia/Karachi'));
         // $schedule->command('send:sms')->hourly();
 
-        $schedule->command('backup:cron')->everyTwoHours();
+        $schedule->command('backup:cron')->everyTwoHours()
+                    ->timezone('Asia/Karachi')
+                    ->emailOutputTo('zaffar@ajwagardens-cms.com')
+                    ->emailOutputOnFailure('zaffar@ajwagardens-cms.com');
     }
 
     /**
