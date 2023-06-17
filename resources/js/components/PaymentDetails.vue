@@ -23,7 +23,8 @@
                             </td>
                             <td>
                                 {{
-                                    record.amount_received
+                                    record.amount_received &&
+                                    record.amount_received > 0
                                         ? record.amount_received.toLocaleString(
                                               "en-IN"
                                           )
