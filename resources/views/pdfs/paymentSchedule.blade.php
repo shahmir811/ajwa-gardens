@@ -97,6 +97,7 @@
 
     @php
         $sumOfMonthlyInstallments = 0;
+        $sumOfThreeOrSixMonthsAmount = 0;
     @endphp
     
     <table>
@@ -115,6 +116,7 @@
             @foreach($allotment->schedules as $key => $record)
             @php
               $sumOfMonthlyInstallments += $record->monthly_amount;
+              $sumOfThreeOrSixMonthsAmount += $record->three_or_six_month ? $record->three_or_six_month : 0;
             @endphp
 
             <tr>
@@ -134,7 +136,7 @@
               <td>{{ number_format($allotment->total_received_amount) }}</td>
               <td></td>
               <td>{{ number_format($sumOfMonthlyInstallments) }}</td>
-              <td></td>
+              <td>{{ number_format($sumOfThreeOrSixMonthsAmount) }}</td>
               <td>{{ number_format($allotment->total_remaining_amount) }}</td>
             </tr>
         </tbody>
