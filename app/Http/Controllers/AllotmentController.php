@@ -159,6 +159,9 @@ class AllotmentController extends Controller
                                                         ->first();
         $schedule->amount_received      += $request->amount;
         $schedule->amount_received_on   = $request->date;
+        $schedule->payment_mode         = $request->payment_mode;
+        $schedule->bank_receipt_no      = $request->bank_receipt_no;
+        $schedule->receipt_no           = Carbon::now()->timestamp;
         $schedule->save();
   
         $allotment                          = Allotment::findOrFail($schedule->allotment_id);

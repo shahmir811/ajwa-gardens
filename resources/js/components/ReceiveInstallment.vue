@@ -26,17 +26,48 @@
                     />
                 </div>
             </div>
+        </div>
+        <div class="row make-it-center">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="monthlyInstalment" class="form-label"
+                        >Payment Mode</label
+                    >
+                    <select v-model="form.payment_mode" class="form-control">
+                        <option v-for="mode in form.modes" :value="mode">
+                            {{ mode }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="monthlyInstalment" class="form-label"
+                        >Bank Receipt Number / Cheque Number</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Receipt No / Cheque No"
+                        v-model="form.bank_receipt_no"
+                        :disabled="form.payment_mode === 'Cash'"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="row make-it-center">
             <div class="col pt-12">
                 <div class="d-grid gap-2">
                     <button
                         class="btn btn-primary btn-custom"
                         type="submit"
-                        :disabled="!form.amount"
+                        :disabled="disableSubmitButton"
                     >
                         Receive Amount
                     </button>
                 </div>
             </div>
+            <div class="col"></div>
         </div>
     </form>
 </template>
@@ -49,12 +80,24 @@ export default {
         const id = url.substring(url.lastIndexOf("/") + 1);
         this.currentURLID = id;
     },
+    computed: {
+        disableSubmitButton() {
+            const condition1 = !this.form.amount;
+            const condition2 =
+                this.form.payment_mode !== "Cash" && !this.form.bank_receipt_no;
+
+            return condition1 || condition2;
+        },
+    },
     data() {
         return {
             currentURLID: null,
             form: {
                 amount: null,
                 date: new Date().toISOString().substr(0, 10),
+                modes: ["Cash", "Bank Transfer", "Cheque"],
+                payment_mode: "Cash",
+                bank_receipt_no: null,
             },
         };
     },
