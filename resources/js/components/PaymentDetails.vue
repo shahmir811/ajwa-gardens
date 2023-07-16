@@ -8,6 +8,7 @@
                             <th>SR #</th>
                             <th>Date</th>
                             <th>Amount Received</th>
+                            <th>Payment Mode</th>
                             <th>Amount Received On</th>
                             <th>Monthly Installments</th>
                             <th>3 Months &amp; Half Year Payment</th>
@@ -31,6 +32,7 @@
                                         : "-"
                                 }}
                             </td>
+                            <td>{{ record.payment_mode }}</td>
                             <td>
                                 {{ formattedDate(record.amount_received_on) }}
                             </td>
