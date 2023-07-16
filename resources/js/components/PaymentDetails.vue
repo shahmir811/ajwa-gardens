@@ -13,6 +13,7 @@
                             <th>Monthly Installments</th>
                             <th>3 Months &amp; Half Year Payment</th>
                             <th>Remaining Amount</th>
+                            <th>Receipt No</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -67,6 +68,7 @@
                                     )
                                 }}
                             </td>
+                            <td>{{ record.receipt_no }}</td>
                             <td>
                                 <span
                                     v-if="
