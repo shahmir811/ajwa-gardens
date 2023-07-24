@@ -113,8 +113,8 @@
             <td>
                 <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
-                        <td style="width:80px;"><strong>Deposit By</strong></td>
-                        <td style="border-bottom:1px solid #000000; width: 330px;">{{ auth()->user()->name }}</td>
+                        {{-- <td style="width:80px;"><strong>Deposit By</strong></td>
+                        <td style="border-bottom:1px solid #000000; width: 330px;">{{ auth()->user()->name }}</td> --}}
                         <td style="width:90px;"><strong>Analysis Code</strong></td>
                         <td style="border-bottom:1px solid #000000">True Marketing</td>
                     </tr>
@@ -253,8 +253,8 @@
             <td>
                 <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
-                        <td style="width:80px;"><strong>Deposit By</strong></td>
-                        <td style="border-bottom:1px solid #000000; width: 330px;">{{ auth()->user()->name }}</td>
+                        {{-- <td style="width:80px;"><strong>Deposit By</strong></td>
+                        <td style="border-bottom:1px solid #000000; width: 330px;">{{ auth()->user()->name }}</td> --}}
                         <td style="width:90px;"><strong>Analysis Code</strong></td>
                         <td style="border-bottom:1px solid #000000">True Marketing</td>
                     </tr>
@@ -393,8 +393,8 @@
             <td>
                 <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
-                        <td style="width:80px;"><strong>Deposit By</strong></td>
-                        <td style="border-bottom:1px solid #000000; width: 330px;">{{ auth()->user()->name }}</td>
+                        {{-- <td style="width:80px;"><strong>Deposit By</strong></td>
+                        <td style="border-bottom:1px solid #000000; width: 330px;">{{ auth()->user()->name }}</td> --}}
                         <td style="width:90px;"><strong>Analysis Code</strong></td>
                         <td style="border-bottom:1px solid #000000">True Marketing</td>
                     </tr>
