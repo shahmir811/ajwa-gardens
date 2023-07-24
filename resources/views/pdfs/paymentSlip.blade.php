@@ -88,7 +88,7 @@
                 <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
                         <td style="width:94px;"><strong>Payment Mode</strong></td>
-                        <td style="border-bottom:1px solid #000000">{{ $schedule->payment_mode }}</td>
+                        <td style="border-bottom:1px solid #000000; width:350px;">{{ $schedule->payment_mode }}</td>
                         {{-- <td style="width:90px;"><strong>Instrument No.</strong></td>
                         <td style="border-bottom:1px solid #000000">RBT P# 100-A</td> --}}
                         <td style="width:45px;"><strong>Dated</strong></td>
@@ -104,7 +104,7 @@
                         <td style="width:110px;"><strong>Block & Plot No.</strong></td>
                         <td style="border-bottom:1px solid #000000; width: 300px;">{{ $schedule->allotment->plot->plot_no }} (Phase: {{ $schedule->allotment->plot->phase->name }})</td>
                         <td style="width:30px;"><strong>Size</strong></td>
-                        <td style="border-bottom:1px solid #000000">{{ $schedule->allotment->plot->marla }}-M</td>
+                        <td style="border-bottom:1px solid #000000">{{ $schedule->allotment->plot->marla }}-M ({{ $schedule->allotment->plot->type }})</td>
                     </tr>
                 </table>
             </td>
@@ -129,11 +129,11 @@
                             <table width="100%" style="border-spacing:0; margin: 0 auto; font-size: 10px; line-height: 12px;">
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Address:</strong></td>
-                                    <td colspan="4">Rangpur Road off Khaimkaran, Road Kasur</td>
+                                    <td colspan="4">{{ $schedule->allotment->plot->phase->name == '1' ? 'Rangpur Road off Khaimkaran, Road Kasur' : 'Main Depalpur Road Kasur' }}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Contact No.</strong></td>
-                                    <td colspan="4">+92 300 8193333, +92 324 8823042, +92 302 4888999</td>
+                                    <td colspan="4">+92 302 4888999</td>
                                 </tr>
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Website:</strong></td>
@@ -228,7 +228,7 @@
                 <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
                         <td style="width:94px;"><strong>Payment Mode</strong></td>
-                        <td style="border-bottom:1px solid #000000">{{ $schedule->payment_mode }}</td>
+                        <td style="border-bottom:1px solid #000000; width:350px;">{{ $schedule->payment_mode }}</td>
                         {{-- <td style="width:90px;"><strong>Instrument No.</strong></td>
                         <td style="border-bottom:1px solid #000000">RBT P# 100-A</td> --}}
                         <td style="width:45px;"><strong>Dated</strong></td>
@@ -244,7 +244,7 @@
                         <td style="width:110px;"><strong>Block & Plot No.</strong></td>
                         <td style="border-bottom:1px solid #000000; width: 300px;">{{ $schedule->allotment->plot->plot_no }} (Phase: {{ $schedule->allotment->plot->phase->name }})</td>
                         <td style="width:30px;"><strong>Size</strong></td>
-                        <td style="border-bottom:1px solid #000000">{{ $schedule->allotment->plot->marla }}-M</td>
+                        <td style="border-bottom:1px solid #000000">{{ $schedule->allotment->plot->marla }}-M ({{ $schedule->allotment->plot->type }})</td>
                     </tr>
                 </table>
             </td>
@@ -269,11 +269,11 @@
                             <table width="100%" style="border-spacing:0; margin: 0 auto; font-size: 10px; line-height: 12px;">
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Address:</strong></td>
-                                    <td colspan="4">Rangpur Road off Khaimkaran, Road Kasur</td>
+                                    <td colspan="4">{{ $schedule->allotment->plot->phase->name == '1' ? 'Rangpur Road off Khaimkaran, Road Kasur' : 'Main Depalpur Road Kasur' }}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Contact No.</strong></td>
-                                    <td colspan="4">+92 300 8193333, +92 324 8823042, +92 302 4888999</td>
+                                    <td colspan="4">+92 302 4888999</td>
                                 </tr>
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Website:</strong></td>
@@ -368,7 +368,7 @@
                 <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
                         <td style="width:94px;"><strong>Payment Mode</strong></td>
-                        <td style="border-bottom:1px solid #000000">{{ $schedule->payment_mode }}</td>
+                        <td style="border-bottom:1px solid #000000; width:350px;">{{ $schedule->payment_mode }}</td>
                         {{-- <td style="width:90px;"><strong>Instrument No.</strong></td>
                         <td style="border-bottom:1px solid #000000">RBT P# 100-A</td> --}}
                         <td style="width:45px;"><strong>Dated</strong></td>
@@ -384,7 +384,7 @@
                         <td style="width:110px;"><strong>Block & Plot No.</strong></td>
                         <td style="border-bottom:1px solid #000000; width: 300px;">{{ $schedule->allotment->plot->plot_no }} (Phase: {{ $schedule->allotment->plot->phase->name }})</td>
                         <td style="width:30px;"><strong>Size</strong></td>
-                        <td style="border-bottom:1px solid #000000">{{ $schedule->allotment->plot->marla }}-M</td>
+                        <td style="border-bottom:1px solid #000000">{{ $schedule->allotment->plot->marla }}-M ({{ $schedule->allotment->plot->type }})</td>
                     </tr>
                 </table>
             </td>
@@ -409,11 +409,11 @@
                             <table width="100%" style="border-spacing:0; margin: 0 auto; font-size: 10px; line-height: 12px;">
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Address:</strong></td>
-                                    <td colspan="4">Rangpur Road off Khaimkaran, Road Kasur</td>
+                                    <td colspan="4">{{ $schedule->allotment->plot->phase->name == '1' ? 'Rangpur Road off Khaimkaran, Road Kasur' : 'Main Depalpur Road Kasur' }}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Contact No.</strong></td>
-                                    <td colspan="4">+92 300 8193333, +92 324 8823042, +92 302 4888999</td>
+                                    <td colspan="4">+92 302 4888999</td>
                                 </tr>
                                 <tr>
                                     <td style="width:58px ; color: rgb(0, 22, 163);"><strong>Website:</strong></td>
