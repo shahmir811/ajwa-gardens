@@ -14,12 +14,12 @@
 </style>
 
 </head>
-<body style="margin: 0 0; background: #fafafa; font-size: 12px; font-family: Arial, Helvetica, sans-serif; line-height: 16px;">
+<body style="margin: 0 0; background: #fff; font-size: 12px; font-family: Arial, Helvetica, sans-serif; line-height: 16px;">
 
     <table width="720px" style="border-spacing:0; margin: 0 auto;" >
         <tr>
             <td>
-                <table width="100%" style="border-spacing:0; margin: 0 auto; border-bottom: 1px dashed #d9d9d9;">
+                <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
                         <td style="text-align:left;"><img src="{{ public_path('images/ajwa.png')}}" height="50"></td>
                         <td style="text-align:center;">
@@ -159,7 +159,7 @@
     <table width="720px" style="border-spacing:0; margin: 0 auto;" >
         <tr>
             <td>
-                <table width="100%" style="border-spacing:0; margin: 0 auto; border-bottom: 1px dashed #d9d9d9;">
+                <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
                         <td style="text-align:left;"><img src="{{ public_path('images/ajwa.png')}}" height="50"></td>
                         <td style="text-align:center;">
@@ -299,7 +299,7 @@
     <table width="720px" style="border-spacing:0; margin: 0 auto;" >
         <tr>
             <td>
-                <table width="100%" style="border-spacing:0; margin: 0 auto; border-bottom: 1px dashed #d9d9d9;">
+                <table width="100%" style="border-spacing:0; margin: 0 auto;">
                     <tr>
                         <td style="text-align:left;"><img src="{{ public_path('images/ajwa.png')}}" height="50"></td>
                         <td style="text-align:center;">
