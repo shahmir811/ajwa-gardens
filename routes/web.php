@@ -51,5 +51,6 @@ Route::group([
     Route::delete('/remove-allotment/{id}', [AllotmentController::class, 'removeAllotment'])->name('remove-allotment');
     Route::get('/print-installment-slip/{id}', [AllotmentController::class, 'printInstallmentSlip']); // id => PaymentSchduleSlip id
     Route::get('/print-payment-schdule/{id}', [AllotmentController::class, 'printAllPayments'])->name('print-payment-schdule'); // id => Allotment id 
+    Route::get('/print-down-payment-slip/{id}', [AllotmentController::class, 'printDownPaymentSlip'])->name('down-payment-slip'); // id => Allotment id 
 
 });
