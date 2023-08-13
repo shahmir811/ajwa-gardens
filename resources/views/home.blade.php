@@ -44,7 +44,7 @@
 
     function selectPhase(phase) {
       console.log(phase);
-      if(phase.active === 0) {
+      if(phase.active === '0') {
         axios.post(`${APP_URL}change-phase`, { id: phase.id}).then(response => {
           window.location.href = APP_URL + 'home';
         })
