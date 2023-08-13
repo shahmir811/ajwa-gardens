@@ -202,6 +202,40 @@
             </div>
 
             <div class="row mt-25">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select
+                            class="form-select"
+                            id="floatingSelectGrid"
+                            v-model="allotment.down_payment_mode"
+                        >
+                            <option v-for="mode in modes" :value="mode">
+                                {{ mode }}
+                            </option>
+                        </select>
+                        <label for="floatingSelectGrid"
+                            >Down Payment Mode</label
+                        >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="receipt_no"
+                            placeholder="Receipt No"
+                            v-model="down_payment_bank_receipt_no"
+                            :disabled="allotment.down_payment_mode === 'Cash'"
+                        />
+                        <label for="receipt_no"
+                            >Bank Receipt Number / Cheque Number</label
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-25">
                 <div class="col">
                     <div class="d-grid gap-2">
                         <button
@@ -304,10 +338,13 @@ export default {
                 starting_date: new Date().toISOString().substr(0, 10),
                 registration_no: null,
                 form_no: null,
+                down_payment_mode: "Cash",
             },
+            down_payment_bank_receipt_no: "",
             paymentScheduleCreated: false,
             paymentSchedule: [],
             errors: [],
+            modes: ["Cash", "Bank Transfer", "Cheque"],
         };
     },
     methods: {
@@ -358,6 +395,8 @@ export default {
                         axios
                             .post(`${APP_URL}save-allotment`, {
                                 ...this.allotment,
+                                down_payment_bank_receipt_no:
+                                    this.down_payment_bank_receipt_no,
                                 paymentSchedule: this.paymentSchedule,
                             })
                             .then((response) => {

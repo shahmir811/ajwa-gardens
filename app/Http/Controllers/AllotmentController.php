@@ -84,23 +84,26 @@ class AllotmentController extends Controller
     {
         DB::transaction(function () use ($request) {
 
-          $allotment                          = new Allotment;
-          $allotment->phase_id                = $this->currentPhase->id;
-          $allotment->customer_id             = $request->customer_id;
-          $allotment->plot_id                 = $request->plot_id;
-          $allotment->total_amount            = $request->total_amount;
-          $allotment->down_amount             = $request->down_amount;
-          $allotment->monthly_amount          = $request->monthly_amount;
-          $allotment->per_marla_rate          = $request->per_marla_rate;
-          $allotment->total_months            = $request->total_months; 
-          $allotment->three_months_amount     = $request->three_months_amount;          
-          $allotment->six_months_amount       = $request->six_months_amount;
-          $allotment->starting_date           = $request->starting_date;
-          $allotment->registration_no         = $request->registration_no;
-          $allotment->form_no                 = $request->form_no;
-          $allotment->total_received_amount   = $request->down_amount;
-          $allotment->total_remaining_amount  = $request->total_amount - $request->down_amount;
-          $allotment->last_payment_at         = $request->starting_date;
+          $allotment                                        = new Allotment;
+          $allotment->phase_id                              = $this->currentPhase->id;
+          $allotment->customer_id                           = $request->customer_id;
+          $allotment->plot_id                               = $request->plot_id;
+          $allotment->total_amount                          = $request->total_amount;
+          $allotment->down_amount                           = $request->down_amount;
+          $allotment->monthly_amount                        = $request->monthly_amount;
+          $allotment->per_marla_rate                        = $request->per_marla_rate;
+          $allotment->total_months                          = $request->total_months; 
+          $allotment->three_months_amount                   = $request->three_months_amount;          
+          $allotment->six_months_amount                     = $request->six_months_amount;
+          $allotment->starting_date                         = $request->starting_date;
+          $allotment->registration_no                       = $request->registration_no;
+          $allotment->form_no                               = $request->form_no;
+          $allotment->total_received_amount                 = $request->down_amount;
+          $allotment->total_remaining_amount                = $request->total_amount - $request->down_amount;
+          $allotment->last_payment_at                       = $request->starting_date;
+          $allotment->down_payment_mode                     = $request->down_payment_mode;
+          $allotment->down_payment_bank_receipt_no          = $request->down_payment_bank_receipt_no;
+          $allotment->down_payment_receipt_no               = Carbon::now()->timestamp;
           $allotment->save();
 
           foreach ($request->paymentSchedule as $record){ 
@@ -281,6 +284,13 @@ class AllotmentController extends Controller
       $pdf = PDF::loadView('pdfs.paymentSchedule',array('allotment' => $allotment));
       return $pdf->download('payment_schedule.pdf');
     }
+
+    public function printDownPaymentSlip($id) 
+    {
+      $allotment = Allotment::findOrFail($id);
+      $pdf = PDF::loadView('pdfs.downPaymentSlip',array('allotment' => $allotment));
+      return $pdf->download('down_payment_slip.pdf');
+    }    
 
     private function getThreeOrSixMonthColumnValue($data)
     { 

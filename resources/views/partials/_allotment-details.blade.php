@@ -91,6 +91,29 @@
         <p>{{ $allotment->last_payment_at }}</p>
       </div>      
     </div>
+
+    <div class="row">
+      <div class="four wide column">
+        <h3 class="ui header">Down Payment Mode:</h3>
+      </div>
+      <div class="four wide column">
+        <p>{{ $allotment->down_payment_payment_mode }}</p>
+      </div>
+      <div class="four wide column">
+        <h3 class="ui header">Bank Receipt Number / Cheque Number:</h3>
+      </div>
+      <div class="four wide column">
+        <p>{{ $allotment->down_payment_bank_receipt_no }}</p>
+      </div>      
+    </div>    
+
+    <div class="row">
+      <div class="four wide column">
+          <a class="ui red button" href="{{ route('down-payment-slip', $allotment->id) }}"><i class="fa fa-print" aria-hidden="true"></i> Print Down Payment Slip</a>        
+      </div>
+      <div class="four wide column"></div>
+      <div class="four wide column"></div>
+    </div>
         
 
   </div>
