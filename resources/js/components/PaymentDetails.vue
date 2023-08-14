@@ -119,6 +119,7 @@
                                 }}
                             </td>
                             <td></td>
+                            <td></td>
                             <td>
                                 {{ monthlyAmountSum.toLocaleString("en-IN") }}
                             </td>
