@@ -228,6 +228,7 @@
                 <tr>
                     <td style="width:105px; height:23px"><strong>Payment Mode</strong></td>
                     <td style="border-bottom:1px solid #000000; width:350px; text-align: left; padding-left: 25px;">{{ $schedule->payment_mode }} <small style="font-size: 10px;">{{ $schedule->bank_receipt_no ? '(' .$schedule->bank_receipt_no . ')' : ''  }}</small></td>
+                    <td style="width:45px;"><strong>Dated</strong></td>
                     <td style="border-bottom:1px solid #000000; text-align: left; padding-left: 25px;">{{ date('d/m/Y', strtotime($schedule->amount_received_on)) }}</td>
                 </tr>
             </table>
@@ -365,6 +366,7 @@
                 <tr>
                     <td style="width:105px; height:23px"><strong>Payment Mode</strong></td>
                     <td style="border-bottom:1px solid #000000; width:350px; text-align: left; padding-left: 25px;">{{ $schedule->payment_mode }} <small style="font-size: 10px;">{{ $schedule->bank_receipt_no ? '(' .$schedule->bank_receipt_no . ')' : ''  }}</small></td>
+                    <td style="width:45px;"><strong>Dated</strong></td>
                     <td style="border-bottom:1px solid #000000; text-align: left; padding-left: 25px;">{{ date('d/m/Y', strtotime($schedule->amount_received_on)) }}</td>
                 </tr>
             </table>
