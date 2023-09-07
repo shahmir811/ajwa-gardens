@@ -48,7 +48,7 @@ class Allotment extends Model
     
     public function schedules()
     {
-        return $this->hasMany(PaymentSchedule::class);
+        return $this->hasMany(PaymentSchedule::class)->orderBy('date', 'asc');
     }
 
     public function convertNumber($number = false)

@@ -18,10 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            v-for="(record, index) in sortedSchedule"
-                            :key="index"
-                        >
+                        <tr v-for="(record, index) in schedules" :key="index">
                             <td>{{ ++index }}</td>
                             <td>
                                 {{ formattedDate(record.date) }}
@@ -161,7 +158,6 @@ export default {
         const url = window.location.href;
         const id = url.substring(url.lastIndexOf("/") + 1);
         this.currentURLID = id;
-        this.sortedSchedule = this.schedules.sort((a, b) => a.date > b.date);
     },
     data() {
         return {
@@ -169,7 +165,6 @@ export default {
             threeSixMonthsAmountSum: 0,
             totalAmountReceived: 0,
             currentURLID: null,
-            sortedSchedule: null,
         };
     },
     methods: {
