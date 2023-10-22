@@ -25,6 +25,8 @@ import PaymentDetails from "./components/PaymentDetails.vue";
 import PaymentSchedule from "./components/PaymentSchedule.vue";
 import ReceiveInstallment from "./components/ReceiveInstallment.vue";
 
+window.global ||= window;
+
 app.component("example-component", ExampleComponent);
 app.component("allotment-component", AllotmentComponent);
 app.component("payment-schedule", PaymentSchedule);

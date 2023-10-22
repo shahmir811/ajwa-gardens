@@ -73,12 +73,22 @@
 </template>
 
 <script>
+import { sendSMS } from "../aws/sendSmsToSQS";
+
 export default {
     name: "ReceiveInstallmentComponent",
     mounted() {
         const url = window.location.href;
         const id = url.substring(url.lastIndexOf("/") + 1);
         this.currentURLID = id;
+
+        const aws_cred = {
+            access_id: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
+            secret_access: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
+            region: import.meta.env.VITE_AWS_DEFAULT_REGION,
+        };
+
+        sendSMS(aws_cred);
     },
     computed: {
         disableSubmitButton() {
