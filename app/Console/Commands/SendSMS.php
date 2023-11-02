@@ -23,7 +23,7 @@ class SendSMS extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send sms to the clients regarding there payments';
 
     /**
      * Execute the console command.
