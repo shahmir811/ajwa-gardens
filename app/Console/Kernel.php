@@ -30,6 +30,12 @@ class Kernel extends ConsoleKernel
                     ->emailOutputTo('zaffar@ajwagardens-cms.com')
                     ->emailOutputOnFailure('zaffar@ajwagardens-cms.com');
 
+        $schedule->command('send:sms')->everyMinute()
+                    ->timezone('Asia/Karachi');
+
+        $schedule->command('delete:sms')->dailyAt("00:00")
+                    ->timezone('Asia/Karachi');                  
+
     }
 
     /**
