@@ -7,5 +7,7 @@ return [
   'sendpk_username'     => env('SENDPK_USERNAME'),
   'sendpk_password'     => env('SENDPK_PASSWORD'),
   'sendpk_sender'       => env('SENDPK_SENDER'),
+  'sms_key'             => env('SMS_KEY'),
+  'sms_sender'          => env('SMS_SENDER'),
 
 ];

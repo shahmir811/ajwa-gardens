@@ -120,6 +120,29 @@ class AllotmentController extends Controller
           $plot             = Plot::findOrFail($request->plot_id);
           $plot->available  = 0;
           $plot->save();
+
+          $description = "Dear valued customer, we have received Rs " . $allotment->down_amount . " as a booking amount.\nThanks, Ajwa Gardens";
+
+          $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
+
+          $record = [
+            'description' => $description,
+            'phone_number' => $phone_number
+          ];
+
+          $message = new Message;
+          $message->insertMessage($record);        
+
+          $zaffar_number = Config::get('customvariables.zaffar_bhai_contact');
+          $zaffar_number = preg_replace('/\D+/', '', $zaffar_number);
+          $new_description = "You have received Rs " . $allotment->down_amount .  " as a booking amount.\nThanks, Ajwa Gardens";
+
+          $record = [
+            'description'   => $new_description,
+            'phone_number'  => $zaffar_number
+          ];
+
+          $message->insertMessage($record);          
         
 
         });  
@@ -173,9 +196,7 @@ class AllotmentController extends Controller
         $allotment->last_payment_at         = $request->date;
         $allotment->save();
 
-        // TODO: Save to messages database table
-
-        $description = "Monthly installment of Rs " . $request->amount . ' has been submitted against your plot # ' . $allotment->plot->plot_no . ' at Ajwa Gardens Phase ' . $allotment->phase->name;
+        $description = "Dear valued customer, we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
 
         $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
@@ -187,12 +208,13 @@ class AllotmentController extends Controller
         $message = new Message;
         $message->insertMessage($record);        
 
-        $phone_number = Config::get('customvariables.zaffar_bhai_contact');
-        $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
+        $zaffar_number = Config::get('customvariables.zaffar_bhai_contact');
+        $zaffar_number = preg_replace('/\D+/', '', $zaffar_number);
+        $new_description = "You have received Rs " . $request->amount .  " as an instalment amount.\nThanks, Ajwa Gardens";
 
         $record = [
-          'description' => $description,
-          'phone_number' => $phone_number
+          'description'   => $new_description,
+          'phone_number'  => $zaffar_number
         ];
 
         $message->insertMessage($record);
@@ -222,6 +244,8 @@ class AllotmentController extends Controller
         $allotment_id                 = $schedule->allotment_id;
         $amount                       = $schedule->amount_received;
         $schedule->amount_received    = 0;
+        $schedule->payment_mode       = "";
+        $schedule->receipt_no         = "";
         $schedule->amount_received_on = null;
 
         $schedule->save();
