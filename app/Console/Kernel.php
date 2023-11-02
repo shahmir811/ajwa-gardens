@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         Commands\BackupCron::class,
+        Commands\SendSMS::class,
     ];
 
     protected function schedule(Schedule $schedule): void
