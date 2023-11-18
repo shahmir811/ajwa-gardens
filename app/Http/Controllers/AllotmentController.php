@@ -121,7 +121,7 @@ class AllotmentController extends Controller
           $plot->available  = 0;
           $plot->save();
 
-          $description = "Dear valued customer, we have received Rs " . $allotment->down_amount . " as a booking amount.\nThanks, Ajwa Gardens";
+          $description = "Dear Mr/Mrs " . $allotment->customer->name . ", we have received Rs " . $allotment->down_amount . " as a booking amount.\nThanks, Ajwa Gardens";
 
           $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
@@ -135,7 +135,7 @@ class AllotmentController extends Controller
 
           $zaffar_number = Config::get('customvariables.zaffar_bhai_contact');
           $zaffar_number = preg_replace('/\D+/', '', $zaffar_number);
-          $new_description = "You have received Rs " . $allotment->down_amount .  " as a booking amount.\nThanks, Ajwa Gardens";
+          $new_description = "You have received Rs " . $allotment->down_amount .  " as a booking amount from Mr/Mrs " . $allotment->customer->name . ".\nThanks, Ajwa Gardens";
 
           $record = [
             'description'   => $new_description,
@@ -196,7 +196,7 @@ class AllotmentController extends Controller
         $allotment->last_payment_at         = $request->date;
         $allotment->save();
 
-        $description = "Dear valued customer, we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
+        $description = "Dear " . $allotment->customer->name . " customer, we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
 
         $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
@@ -210,7 +210,7 @@ class AllotmentController extends Controller
 
         $zaffar_number = Config::get('customvariables.zaffar_bhai_contact');
         $zaffar_number = preg_replace('/\D+/', '', $zaffar_number);
-        $new_description = "You have received Rs " . $request->amount .  " as an instalment amount.\nThanks, Ajwa Gardens";
+        $new_description = "You have received Rs " . $request->amount .  " as an instalment amount from ". $allotment->customer->name . ".\nThanks, Ajwa Gardens";
 
         $record = [
           'description'   => $new_description,
