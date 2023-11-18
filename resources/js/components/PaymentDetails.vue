@@ -38,19 +38,24 @@
                                 {{ formattedDate(record.amount_received_on) }}
                             </td>
                             <td>
-                                {{ record.monthly_amount.toLocaleString() }}
+                                {{
+                                    getMonthlyRecord(
+                                        record,
+                                        record.monthly_amount
+                                    )
+                                }}
                             </td>
                             <td>
-                                <span v-if="record.id === 3">
+                                <span v-if="index === 3">
                                     {{
                                         allotment.three_months_amount > 0
                                             ? allotment.three_months_amount.toLocaleString(
                                                   "en-IN"
                                               )
                                             : "-"
-                                    }}</span
-                                >
-                                <span v-else-if="record.id % 6 === 0">
+                                    }}
+                                </span>
+                                <span v-else-if="index % 6 === 0">
                                     {{
                                         allotment.six_months_amount > 0
                                             ? allotment.six_months_amount.toLocaleString(
@@ -62,11 +67,7 @@
                                 <span v-else>-</span>
                             </td>
                             <td>
-                                {{
-                                    allotment.total_remaining_amount.toLocaleString(
-                                        "en-IN"
-                                    )
-                                }}
+                                {{ getRemainingAmount(allotment, index) }}
                             </td>
                             <td>{{ record.receipt_no }}</td>
                             <td>
@@ -158,6 +159,10 @@ export default {
         const url = window.location.href;
         const id = url.substring(url.lastIndexOf("/") + 1);
         this.currentURLID = id;
+        // console.log(this.schedules);
+    },
+    computed: {
+        //
     },
     data() {
         return {
@@ -180,9 +185,15 @@ export default {
                 sumOfReceivedPayments + this.allotment.down_amount;
         },
         calcMonthlyAmountSum() {
-            this.monthlyAmountSum = this.schedules
+            let monthlyInstalmentSum = this.schedules
                 .map((record) => parseInt(record.monthly_amount))
                 .reduce((a, b) => a + b, 0);
+
+            let amountPaidSum = this.schedules
+                .map((record) => parseInt(record.amount_received))
+                .reduce((a, b) => a + b, 0);
+
+            this.monthlyAmountSum = monthlyInstalmentSum - amountPaidSum;
         },
         calcThreeSixMonthsAmountSum() {
             this.threeSixMonthsAmountSum = this.schedules
@@ -235,6 +246,42 @@ export default {
                         /////////////////////////
                     }
                 });
+        },
+        getMonthlyRecord(obj, actual_amount) {
+            const record = JSON.parse(JSON.stringify(obj));
+
+            const { amount_received } = record;
+            let amount = actual_amount;
+
+            let remaining = "-";
+
+            if (!amount) {
+                return remaining;
+            } else if (amount > 0 && amount_received && amount_received > 0) {
+                if (amount_received === amount) return remaining;
+                else if (amount_received < amount) {
+                    remaining = amount - amount_received;
+                    return remaining.toLocaleString("en-IN");
+                } else {
+                    remaining = amount_received - amount;
+                    return `(${remaining.toLocaleString("en-IN")})`;
+                }
+            } else {
+                return amount.toLocaleString("en-IN");
+            }
+        },
+        getRemainingAmount(allotment_record, current_month) {
+            const allotment = JSON.parse(JSON.stringify(allotment_record));
+
+            const { total_amount, down_amount } = allotment;
+            let amount_paid = 0;
+
+            for (let index = 0; index < current_month; index++) {
+                amount_paid += this.schedules[index].amount_received;
+            }
+
+            let remaining = total_amount - down_amount - amount_paid;
+            return remaining.toLocaleString("en-IN");
         },
     },
 };

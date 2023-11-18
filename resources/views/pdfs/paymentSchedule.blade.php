@@ -97,7 +97,56 @@
 
     @php
         $sumOfMonthlyInstallments = 0;
+        $sumOfTotalAmountReceived = 0;
         $sumOfThreeOrSixMonthsAmount = 0;
+
+        function getMonthlyRecord($obj, $actual_amount) {
+            $record = json_decode(json_encode($obj), true);
+
+            $amount_received = $record['amount_received'];
+            $amount = $actual_amount;
+
+            $remaining = "-";
+
+            if (!$amount) {
+                return $remaining;
+            } else if ($amount > 0 && $amount_received && $amount_received > 0) {
+                if ($amount_received === $amount) {
+                    return $remaining;
+                } else if ($amount_received < $amount) {
+                    $remaining = $amount - $amount_received;
+                    // return number_format($remaining, 2, '.', ',');
+                    return number_format($remaining);
+                } else {
+                    $remaining = $amount_received - $amount;
+                    // return "(" . number_format($remaining, 2, '.', ',') . ")";
+                    return "(" . number_format($remaining) . ")";
+                }
+            } else {
+                // return number_format($amount, 2, '.', ',');
+                return number_format($amount);
+            }
+        }
+
+        function getRemainingAmount($allotment_record, $current_month, $schedules) {
+            $allotment = json_decode(json_encode($allotment_record), true);
+
+            $total_amount = $allotment['total_amount'];
+            $down_amount = $allotment['down_amount'];
+            $amount_paid = 0;
+
+            for ($index = 0; $index < $current_month; $index++) {
+                if (isset($schedules[$index])) {
+                    $amount_paid += $schedules[$index]['amount_received'];
+                }
+            }
+
+            $remaining = $total_amount - $down_amount - $amount_paid;
+            // return number_format($remaining, 2, '.', ',');
+            return number_format($remaining);
+        }
+
+
     @endphp
     
     <table>
@@ -116,6 +165,7 @@
             @foreach($allotment->schedules as $key => $record)
             @php
               $sumOfMonthlyInstallments += $record->monthly_amount;
+              $sumOfTotalAmountReceived += $record->amount_received; 
               $sumOfThreeOrSixMonthsAmount += $record->three_or_six_month ? $record->three_or_six_month : 0;
             @endphp
 
@@ -124,10 +174,11 @@
                 <td>{{ date('d-m-Y', strtotime($record->date)) }}</td>
                 <td>{{ $record->amount_received ? number_format($record->amount_received) : '-' }}</td>
                 <td>{{ $record->amount_received_on ? date('d-m-Y', strtotime($record->amount_received_on)) : '-' }}</td>
-                <td>{{ number_format($record->monthly_amount) }}</td>
+                {{-- <td>{{ number_format($record->monthly_amount) }}</td> --}}
+                <td>{{ getMonthlyRecord($record, $record->monthly_amount) }}</td>
                 <td>{{ $record->three_or_six_month ? number_format($record->three_or_six_month) : '-' }}</td>
-                <td>{{ number_format($allotment->total_remaining_amount) }}</td>
-                
+                {{-- <td>{{ number_format($allotment->total_remaining_amount) }}</td> --}}
+                <td>{{ getRemainingAmount($allotment, $key, $allotment->schedules) }}</td>
             </tr>
             @endforeach
             <tr>
@@ -135,7 +186,7 @@
               <td></td>
               <td>{{ number_format($allotment->total_received_amount) }}</td>
               <td></td>
-              <td>{{ number_format($sumOfMonthlyInstallments) }}</td>
+              <td>{{ number_format($sumOfMonthlyInstallments - $sumOfTotalAmountReceived) }}</td>
               <td>{{ number_format($sumOfThreeOrSixMonthsAmount) }}</td>
               <td>{{ number_format($allotment->total_remaining_amount) }}</td>
             </tr>
