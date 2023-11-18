@@ -277,10 +277,13 @@ export default {
             let amount_paid = 0;
 
             for (let index = 0; index < current_month; index++) {
-                amount_paid += this.schedules[index].amount_received;
+                amount_paid += parseInt(this.schedules[index].amount_received);
             }
 
-            let remaining = total_amount - down_amount - amount_paid;
+            let remaining =
+                parseInt(total_amount) -
+                parseInt(down_amount) -
+                parseInt(amount_paid);
             return remaining.toLocaleString("en-IN");
         },
     },
