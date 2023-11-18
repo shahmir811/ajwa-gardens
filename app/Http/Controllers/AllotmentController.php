@@ -196,7 +196,7 @@ class AllotmentController extends Controller
         $allotment->last_payment_at         = $request->date;
         $allotment->save();
 
-        $description = "Dear " . $allotment->customer->name . " customer, we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
+        $description = "Dear " . $allotment->customer->name . ", we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
 
         $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
