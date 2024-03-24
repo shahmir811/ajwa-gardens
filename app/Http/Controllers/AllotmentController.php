@@ -121,7 +121,8 @@ class AllotmentController extends Controller
           $plot->available  = 0;
           $plot->save();
 
-          $description = "Dear Mr/Mrs " . $allotment->customer->name . ", we have received Rs " . $allotment->down_amount . " as a booking amount.\nThanks, Ajwa Gardens";
+          // $description = "Dear Mr/Mrs " . $allotment->customer->name . ", we have received Rs " . $allotment->down_amount . " as a booking amount.\nThanks, Ajwa Gardens";
+          $description = "Dear Mr/Mrs " . $allotment->customer->name . ", we have received Rs " . $allotment->down_amount . " as a booking amount against your plot " . $allotment->plot->plot_no . ". " . $allotment->plot->marla . " marla.\nThanks, Ajwa Gardens";
 
           $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
@@ -135,7 +136,8 @@ class AllotmentController extends Controller
 
           $zaffar_number = Config::get('customvariables.zaffar_bhai_contact');
           $zaffar_number = preg_replace('/\D+/', '', $zaffar_number);
-          $new_description = "You have received Rs " . $allotment->down_amount .  " as a booking amount from Mr/Mrs " . $allotment->customer->name . ".\nThanks, Ajwa Gardens";
+          // $new_description = "You have received Rs " . $allotment->down_amount .  " as a booking amount from Mr/Mrs " . $allotment->customer->name . ".\nThanks, Ajwa Gardens";
+          $new_description = "You have received Rs " . $allotment->down_amount .  " as a booking amount from Mr/Mrs " . $allotment->customer->name . " against the plot " . $allotment->plot->plot_no . ". " . $allotment->plot->marla . " marla.\nThanks, Ajwa Gardens";
 
           $record = [
             'description'   => $new_description,
