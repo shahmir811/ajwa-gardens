@@ -30,20 +30,25 @@ class SendSMS extends Command
      */
     public function handle()
     {
-        $client = new \GuzzleHttp\Client();
-        $api_key    = Config::get('customvariables.sms_key');
-        $sms_sender = Config::get('customvariables.sms_sender');
-        $endpoint   = "https://api.wolftechs.pk/sendsms.php";
+        $client         = new \GuzzleHttp\Client();
+        $username       = Config::get('customvariables.lrt_sms_username');
+        $password       = Config::get('customvariables.lrt_sms_password');
+        $api_key        = Config::get('customvariables.lrt_sms_apikey');
+        $sender         = Config::get('customvariables.lrt_sms_sender');
+        $endpoint       = "https://sms.lrt.com.pk/api/sms-single-or-bulk-api.php";
         
         
         $messages = Message::where('status', '=', 0)->get();
         foreach ($messages as $message) {
 
             $client = new Client();
-            $params = array('apikey' => $api_key , 
-                            'phone' => $message->phone_number,
-                            'sender' => $sms_sender,
-                            'message' => $message->description
+            $params = array('username'  => $username , 
+                            'password'  => $password,
+                            'apikey'    => $api_key,
+                            'sender'    => $sender,
+                            'phone'     => $message->phone_number,
+                            'type'      => 'English',
+                            'message'   => $message->description
                         );
             
             // $url = $endpoint . '?' . http_build_query($params);
