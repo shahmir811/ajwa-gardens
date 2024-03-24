@@ -196,7 +196,8 @@ class AllotmentController extends Controller
         $allotment->last_payment_at         = $request->date;
         $allotment->save();
 
-        $description = "Dear " . $allotment->customer->name . ", we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
+        // $description = "Dear " . $allotment->customer->name . ", we have received Rs " . $request->amount . " as an instalment amount.\nThanks, Ajwa Gardens";
+        $description = "Dear " . $allotment->customer->name . ", we have received Rs " . $request->amount . " as an instalment amount against your plot " . $allotment->plot->plot_no . ". " . $allotment->plot->marla . " marla.\nThanks, Ajwa Gardens";
 
         $phone_number = preg_replace('/\D+/', '', $allotment->customer->contact);
 
@@ -210,7 +211,8 @@ class AllotmentController extends Controller
 
         $zaffar_number = Config::get('customvariables.zaffar_bhai_contact');
         $zaffar_number = preg_replace('/\D+/', '', $zaffar_number);
-        $new_description = "You have received Rs " . $request->amount .  " as an instalment amount from ". $allotment->customer->name . ".\nThanks, Ajwa Gardens";
+        // $new_description = "You have received Rs " . $request->amount .  " as an instalment amount from ". $allotment->customer->name . ".\nThanks, Ajwa Gardens";
+        $new_description = "You have received Rs " . $request->amount .  " as an instalment amount from ". $allotment->customer->name . " against the plot " . $allotment->plot->plot_no . ". " . $allotment->plot->marla . " marla.\nThanks, Ajwa Gardens";
 
         $record = [
           'description'   => $new_description,
